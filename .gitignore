@@ -1,0 +1,15 @@
+# Ignore log files
+*.log
+
+# macOS system files
+.DS_Store
+
+# Node modules directory
+node_modules/
+
+# Cache directories
+.cache/
+.parcel-cache/
+
+# Build output directory
+dist/

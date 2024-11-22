@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "target": "es6", // Modern JS target for better features
+    "module": "esnext", // ESNext module system for tree-shaking
+    "jsx": "react-jsx", // Modern React JSX runtime
+    "moduleResolution": "node", // Resolves Node.js modules
+    "noImplicitAny": true, // Enforces explicit typing
+    "strict": true, // Enable all strict type-checking options
+    "noUnusedLocals": true, // Warns for unused variables
+    "noUnusedParameters": true, // Warns for unused function parameters
+    "removeComments": true, // Removes comments in output files
+    "strictNullChecks": true, // Disallows null and undefined unless explicitly typed
+    "esModuleInterop": true, // Allows default imports for CommonJS modules
+    "allowSyntheticDefaultImports": true, // Simplifies importing default exports
+    "skipLibCheck": true, // Speeds up compilation by skipping type checks of .d.ts files
+    "forceConsistentCasingInFileNames": true, // Ensures consistent file naming
+    "resolveJsonModule": true, // Allows importing JSON files
+    "isolatedModules": true, // Required for single-file transpilation (e.g., with Parcel)
+    "sourceMap": true, // Generates source maps for debugging
+    "outDir": "./dist", // Specifies output directory
+    "baseUrl": ".", // Enables absolute imports
+    "paths": {
+      "@components/*": ["src/components/*"], // Example path alias
+      "@utils/*": ["src/utils/*"]
+    },
+    "lib": ["es2017", "dom"], // Includes modern JS and browser types
+    "types": ["node", "jest"] // Type definitions for Node.js and Jest
+  },
+  "include": ["src/**/*"], // Includes all files in the src directory
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.tsx"] // Excludes unnecessary files
+}

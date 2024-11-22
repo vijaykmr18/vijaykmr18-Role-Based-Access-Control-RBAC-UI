@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="description" content="A playground for experimenting with TypeScript and React" />
+    <meta name="author" content="Your Name" />
+    <meta name="keywords" content="HTML, CSS, JavaScript, React, TypeScript" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="Playground" />
+    <meta property="og:description" content="A playground for experimenting with TypeScript and React" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://cdn.jsdelivr.net; img-src 'self' data:; connect-src 'self';" />
+    <link rel="icon" href="/favicon.ico" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <title>Playground</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="index.tsx"></script>
+  </body>
+  <body class="bg-gray-100 text-gray-900 font-sans leading-normal tracking-normal">
+    <!-- Header Section -->
+    <header class="bg-blue-500 text-white py-4">
+      <div class="container mx-auto text-center">
+        <h1 class="text-2xl font-bold">Welcome to the Playground</h1>
+        <p class="text-sm">Experiment with TypeScript, React, and modern web technologies</p>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="root" role="main" class="container mx-auto my-8">
+      <div class="text-center">
+        <p>Loading...</p>
+      </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-800 text-white py-4">
+      <div class="container mx-auto text-center">
+        <p>&copy; 2024 Your Name. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script src="/index.tsx" type="module"></script>
+    <script>
+      // Register Service Worker for offline capabilities
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {
+              console.log('Service Worker registered with scope:', registration.scope);
+            })
+            .catch((error) => {
+              console.error('Service Worker registration failed:', error);
+            });
+        });
+      }
+    </script>
+  </body>
+</html>

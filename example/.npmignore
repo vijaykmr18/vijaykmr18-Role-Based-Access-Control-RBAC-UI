@@ -1,0 +1,9 @@
+node_modules/
+.cache/
+dist/
+.env          # For environment variables
+.DS_Store     # macOS system files
+coverage/     # Code coverage reports
+.vscode/      # Editor-specific settings
+*.log         # Log files
+*.bak         # Backup files

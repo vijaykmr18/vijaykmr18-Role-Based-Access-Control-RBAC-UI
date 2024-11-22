@@ -1,0 +1,82 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    name: Publish Release
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      # Cache node modules for faster builds
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-modules-
+
+      # Setup Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16' # Use LTS for stability
+          cache: 'npm'
+
+      # Install dependencies
+      - name: Install Dependencies
+        run: npm ci
+
+      # Run pre-release checks
+      - name: Run Lint and Tests
+        run: |
+          npm run lint
+          npm test
+
+      # Semantic Release
+      - name: Perform Semantic Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx semantic-release
+
+      # Upload Build Artifacts
+      - name: Upload Release Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: release-artifacts
+          path: ./dist/ # Update to your build output folder
+
+      # Notify on Release (Slack Example)
+      - name: Notify on Slack
+        if: success()
+        uses: slackapi/slack-github-action@v1.25.0
+        with:
+          slack-message: |
+            🚀 A new release has been published!
+            Version: ${{ steps.semantic-release.outputs.new-version }}
+          slack-webhook: ${{ secrets.SLACK_WEBHOOK }}
+
+      # Create GitHub Release (Optional)
+      - name: Create GitHub Release
+        if: success()
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ steps.semantic-release.outputs.new-version }}
+          release_name: Release ${{ steps.semantic-release.outputs.new-version }}
+          body: |
+            A new version has been released!
+            Check out the details in the changelog.
+          draft: false
+          prerelease: false
+          generate_release_notes: true
